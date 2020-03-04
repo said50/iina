@@ -2504,6 +2504,7 @@ extension MainWindowController: PIPViewControllerDelegate {
   }
 
   func doneExitingPIP() {
+    guard pipStatus != .notInPIP else { return }
     if isWindowHidden {
       window?.makeKeyAndOrderFront(self)
     }
@@ -2526,7 +2527,8 @@ extension MainWindowController: PIPViewControllerDelegate {
     isWindowHidden = false
   }
 
-  func pipShouldClose(_ pip: PIPViewController) -> Bool {
+  func prepareForClose(_ pip: PIPViewController) {
+    guard pipStatus != .inPIP else { return }
     // This is called right before we're about to close the PIP
     pipStatus = .intermediate
     
@@ -2547,7 +2549,14 @@ extension MainWindowController: PIPViewControllerDelegate {
     // Bring the window to the front and deminiaturize it
     NSApp.activate(ignoringOtherApps: true)
     window?.deminiaturize(pip)
+  }
 
+  func pipWillClose(_ pip: PIPViewController) {
+    prepareForClose(pip)
+  }
+
+  func pipShouldClose(_ pip: PIPViewController) -> Bool {
+    prepareForClose(pip)
     return true
   }
 
@@ -2566,6 +2575,8 @@ extension MainWindowController: PIPViewControllerDelegate {
   func pipActionStop(_ pip: PIPViewController) {
     // Stopping PIP pauses playback
     player.pause()
+    prepareForClose(pip)
+    pipDidClose(pip)
   }
 }
 
