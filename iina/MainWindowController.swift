@@ -2528,7 +2528,7 @@ extension MainWindowController: PIPViewControllerDelegate {
   }
 
   func prepareForClose(_ pip: PIPViewController) {
-    guard pipStatus != .inPIP else { return }
+    guard pipStatus == .inPIP else { return }
     // This is called right before we're about to close the PIP
     pipStatus = .intermediate
     
