@@ -259,9 +259,9 @@
 
 // Touch bar
 
-"touchbar.ahead_15" = "15sec Ahead";
+"touchbar.ahead_10" = "10sec Ahead";
 "touchbar.ahead_30" = "30sec Ahead";
-"touchbar.back_15" = "15sec Back";
+"touchbar.back_5" = "5sec Back";
 "touchbar.back_30" = "30sec Back";
 "touchbar.next_video" = "Next Video";
 "touchbar.prev_video" = "Previous Video";
