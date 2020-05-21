@@ -259,9 +259,9 @@
 
 // Touch bar
 
-"touchbar.ahead_15" = "15 seconden vooruit";
+"touchbar.ahead_10" = "10 seconden vooruit";
 "touchbar.ahead_30" = "30 seconden vooruit";
-"touchbar.back_15" = "15 seconden terug";
+"touchbar.back_5" = "5 seconden terug";
 "touchbar.back_30" = "30 seconden terug";
 "touchbar.next_video" = "Open volgende video";
 "touchbar.prev_video" = "Open vorige video";
