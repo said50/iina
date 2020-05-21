@@ -28,8 +28,8 @@ fileprivate extension NSTouchBarItem.Identifier {
   static let fastForward = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.forward")
   static let time = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.time")
   static let remainingTime = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.remainingTime")
-  static let ahead15Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.ahead15Sec")
-  static let back15Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.back15Sec")
+  static let ahead10Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.ahead10Sec")
+  static let back5Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.back5Sec")
   static let ahead30Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.ahead30Sec")
   static let back30Sec = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.back30Sec")
   static let next = NSTouchBarItem.Identifier("\(Bundle.main.bundleIdentifier!).TouchBarItem.next")
@@ -41,9 +41,9 @@ fileprivate extension NSTouchBarItem.Identifier {
 // Image name, tag, custom label
 @available(macOS 10.12.2, *)
 fileprivate let touchBarItemBinding: [NSTouchBarItem.Identifier: (NSImage.Name, Int, String)] = [
-  .ahead15Sec: (NSImage.touchBarSkipAhead15SecondsTemplateName, 15, NSLocalizedString("touchbar.ahead_15", comment: "15sec Ahead")),
+  .Ahead10Sec: (NSImage.touchBarSkipAhead10SecondsTemplateName, 10, NSLocalizedString("touchbar.ahead_10", comment: "10sec Ahead")),
   .ahead30Sec: (NSImage.touchBarSkipAhead30SecondsTemplateName, 30, NSLocalizedString("touchbar.ahead_30", comment: "30sec Ahead")),
-  .back15Sec: (NSImage.touchBarSkipBack15SecondsTemplateName, -15, NSLocalizedString("touchbar.back_15", comment: "-15sec Ahead")),
+  .back5Sec: (NSImage.touchBarSkipBack5SecondsTemplateName, -5, NSLocalizedString("touchbar.back_5", comment: "-5sec Ahead")),
   .back30Sec: (NSImage.touchBarSkipBack30SecondsTemplateName, -30, NSLocalizedString("touchbar.back_30", comment: "-30sec Ahead")),
   .next: (NSImage.touchBarSkipAheadTemplateName, 0, NSLocalizedString("touchbar.next_video", comment: "Next Video")),
   .prev: (NSImage.touchBarSkipBackTemplateName, 1, NSLocalizedString("touchbar.prev_video", comment: "Previous Video")),
@@ -63,7 +63,7 @@ class TouchBarSupport: NSObject, NSTouchBarDelegate {
     touchBar.delegate = self
     touchBar.customizationIdentifier = .windowBar
     touchBar.defaultItemIdentifiers = [.playPause, .time, .slider, .remainingTime]
-    touchBar.customizationAllowedItemIdentifiers = [.playPause, .slider, .volumeUp, .volumeDown, .rewind, .fastForward, .time, .remainingTime, .ahead15Sec, .ahead30Sec, .back15Sec, .back30Sec, .next, .prev, .togglePIP, .fixedSpaceLarge]
+    touchBar.customizationAllowedItemIdentifiers = [.playPause, .slider, .volumeUp, .volumeDown, .rewind, .fastForward, .time, .remainingTime, .Ahead10Sec, .ahead30Sec, .back5Sec, .back30Sec, .next, .prev, .togglePIP, .fixedSpaceLarge]
     return touchBar
   }()
 
@@ -135,8 +135,8 @@ class TouchBarSupport: NSObject, NSTouchBarDelegate {
       item.customizationLabel = NSLocalizedString("touchbar.remainingTime", comment: "Remaining Time Position")
       return item
 
-    case .ahead15Sec,
-         .back15Sec,
+    case .Ahead10Sec,
+         .back5Sec,
          .ahead30Sec,
          .back30Sec:
       guard let data = touchBarItemBinding[identifier] else { return nil }
